@@ -10,3 +10,4 @@ def articles_list(request):
     context = {'object_list': articles}
 
     return render(request, template, context)
+
