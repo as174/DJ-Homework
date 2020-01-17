@@ -21,13 +21,13 @@ def product_view(request, pk):
     product = get_object_or_404(Product, id=pk)
     reviews = Review.objects.filter(product=product)
 
+
     form = ReviewForm
+
 
     if 'reviewed_products' not in request.session.keys():
         request.session['reviewed_products'] = []
-
-    if pk in request.session['reviewed_products']:
-        context['is_review_exist'] = True
+        print('request.session.keys()', request.session.keys())
 
     if request.method == 'POST':
         text = request.POST.get('text')
@@ -41,5 +41,9 @@ def product_view(request, pk):
         'product': product,
         'reviews': reviews,
     }
+
+
+    if pk in request.session['reviewed_products']:
+        context['is_review_exist'] = True
 
     return render(request, template, context)
